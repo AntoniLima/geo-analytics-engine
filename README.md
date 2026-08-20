@@ -26,17 +26,18 @@ Os dados são de origem propria de quem utilizar, a pessoa deverá realizar o in
 
 
 ## 4. Arquitetura
-´´´mermaid
+
+```mermaid
 flowchart TD
     subgraph INGESTAO["1. Ingestão & Upload"]
         A["Arquivo do Usuário<br/>(.xlsx, .xls ou .csv)"] --> B{"Detector de Formato & Delimitador"}
         B -->|CSV com Vírgula ','| C1["Parser Pandas sep=','"]
-        B -->|CSV com Pipe '|'| C2["Parser Pandas sep='|'"]
+        B -->|CSV com Pipe #124;| C2["Parser Pandas sep='|'"]
         B -->|Planilha Excel| C3["Parser OpenPyXL"]
     end
 
     subgraph PREP["2. Limpeza & Deduplicação"]
-        C1 & C2 & C3 --> D["Validador de Schema:<br/>[UF, Cidade, Polo]"]
+        C1 & C2 & C3 --> D["Validador de Schema:<br/>(UF, Cidade, Polo)"]
         D --> E["Sanitização de Strings<br/>(Trim, Upper, Normalização de Acentos)"]
         E --> F["Extração de Pares Únicos<br/>(Cidade/UF ↔ Polo)"]
     end
@@ -62,7 +63,7 @@ flowchart TD
     style PREP fill:#131b2e,stroke:#a855f7,stroke-width:2px,color:#f8fafc
     style GEO fill:#131b2e,stroke:#f97316,stroke-width:2px,color:#f8fafc
     style UI_EXPORT fill:#131b2e,stroke:#10b981,stroke-width:2px,color:#f8fafc
-´´´
+```
 
 ## 5. Roadmap e status
 
